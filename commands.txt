@@ -1,0 +1,4 @@
+Stop for a few minutes	docker-compose stop
+Resume after stopping	docker-compose start
+Finish working for the day	docker-compose down
+Start fresh/Rebuild code	docker-compose up -d --build
