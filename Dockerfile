@@ -1,14 +1,14 @@
-# Use a lightweight Node.js image
-FROM node:18-alpine
-
-# Create a directory inside the container
+# Stage 1: Build
+FROM node:18-alpine AS builder
 WORKDIR /app
+COPY package*.json ./
+RUN npm install
 
-# Copy your code into the container
-COPY app.js .
-
-# Export the port inside the container
+# Stage 2: Production
+FROM node:18-alpine
+LABEL maintainer="Karim Wael <kareemzwael@gmail.com>"
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY . .
 EXPOSE 3000
-
-# Command to run the app
-CMD ["node", "app.js"]
+CMD ["node", "src/app.js"]

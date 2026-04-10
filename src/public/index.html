@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Kimo Secure Vault</title>
+</head>
+
+<body>
+    <div class="vault-card">
+        <h1>KIMO SECURE VAULT</h1>
+        <input type="text" id="keyInput" placeholder="Enter Vault Key...">
+        <button onclick="searchVault()">UNLOCK</button>
+        <div id="result" class="output" style="display:none;"></div>
+    </div>
+    <script>
+        async function searchVault() {
+            const key = document.getElementById('keyInput').value;
+            const res = await fetch(`/api/vault?key=${key}`);
+            const data = await res.json();
+            const box = document.getElementById('result');
+            box.style.display = 'block';
+            box.innerText = data.result;
+        }
+    </script>
+</body>
+
+</html>

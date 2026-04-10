@@ -1,6 +1,19 @@
 services:
-  web-app:
+  kimo-app:
     build: .
+    container_name: kimo-vault-container
     ports:
       - "8080:3000"
-    restart: always
+    environment:
+      - REDIS_URL=redis://kimo-db:6379
+    depends_on:
+      - kimo-db
+
+  kimo-db:
+    image: redis:alpine
+    container_name: kimo-redis-container
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
